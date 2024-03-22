@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+
+  postgresql_print_calculation:
+    container_name: postgresql_print_calculation
+    image: postgres:latest
+    restart: always
+    env_file: ./.env
+    ports:
+      - $DB_PORT:5432
+    environment:
+      - POSTGRES_USER=$DB_USERNAME
+      - POSTGRES_PASSWORD=$DB_PASSWORD
+      - POSTGRES_DB=$DB_NAME
+    volumes:
+      - postgresql_print_calculation:/data/db
+    networks:
+      - print_calculation
+
+volumes:
+  postgresql_print_calculation:
+  
+networks:
+  print_calculation:
+    driver: bridge
+    
